@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1446DB28-2F84-4FA1-9AE8-7919B030CF29}|Than_DH52201426\\Than_DH52201426.vcxproj|C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BCay.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{1446DB28-2F84-4FA1-9AE8-7919B030CF29}|Than_DH52201426\\Than_DH52201426.vcxproj|solutionrelative:Than_DH52201426\\BCay.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 762,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BCay.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BCay.h",
+              "RelativeDocumentMoniker": "Than_DH52201426\\BCay.h",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BCay.h",
+              "RelativeToolTip": "Than_DH52201426\\BCay.h",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAACoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-17T19:04:19.549Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        },
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
