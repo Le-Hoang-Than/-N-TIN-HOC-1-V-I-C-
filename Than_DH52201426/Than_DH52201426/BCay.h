@@ -18,7 +18,7 @@ namespace BCay
 		ITEM key_item[M];	//Mảng các phần tử khóa
 		PTRPAGE p_first;	//Con trỏ trang con đầu tiên
 		TYPEINFO key_num;	//Số khóa của trang
-	};	
+	};
 	PTRPAGE root;			//Con trỏ root của B-Tree
 
 
@@ -316,8 +316,23 @@ namespace BCay
 		q->p_first = q->key_item[0].next;
 		for (int i = 1; i < q->key_num; i++)
 		{
-			q->key_item[i-1].key
+			q->key_item[i - 1].key = q->key_item[i].key;
+			q->key_item[i - 1].next = q->key_item[i].next;
 		}
+		q->key_num--;									//Giảm số khóa của trang q
+	}
+
+	//Trang p lấy một khóa của trang anh em bên trái q
+	//Thêm khóa có chỉ số pos của trang cha parent vào đầu trang p
+	void retrieveLeftPage(PTRPAGE p, PTRPAGE parent, int pos, PTRPAGE q)
+	{
+		//Di chuyển tất cả khóa của trang q về bên phải
+		for (int i = p->key_num - 1; i >= 0; i--)
+		{
+			p->key_item[i + 1].key = p->key_item[i].key;
+			p->key_item[i + 1].next = p->key_item[i].next;
+		}
+		//Thêm khóa có chỉ số pos của trang cha parent vào đầu trang p
 	}
 #pragma endregion
 
