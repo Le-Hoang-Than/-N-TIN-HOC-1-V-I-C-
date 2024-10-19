@@ -385,4 +385,12 @@ namespace CayCanBang
 #pragma endregion
 
 
+#pragma region Menu
+	//Menu chức năng cho Cây Cân Bằng
+	void menu()
+	{
+	}
+#pragma endregion
+
+
 }

@@ -394,8 +394,11 @@ namespace BCay
 #pragma endregion
 
 
-#pragma region Program
-
+#pragma region Menu
+	//Menu chức năng cho B Cây
+	void menu()
+	{
+	}
 #pragma endregion
 
 }
