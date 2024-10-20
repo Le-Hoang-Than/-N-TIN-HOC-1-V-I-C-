@@ -55,9 +55,9 @@ namespace BCay
 
 #pragma region Tìm kiếm khóa trong cây
 	//Tìm khóa trong trang p
-	void findPage(PTRPAGE p, TYPEINFO data, bool& found, int& pos)
+	bool findPage(PTRPAGE p, TYPEINFO the_key, int& pos)
 	{
-		found = false;									//Chưa tìm thấy
+		bool found = false;								//Chưa tìm thấy
 		int k;
 		int i = 0;										//i ở đầu dãy
 		int j = p->key_num - 1;							//i ở cuối dãy
@@ -65,64 +65,63 @@ namespace BCay
 		while (i <= j && !found)
 		{
 			k = (i + j) / 2;							//k ở chính giữa
-			if (data < p->key_item[k].key)				//data < khóa của phần tử k
+			if (the_key < p->key_item[k].key)				//the_key < khóa của phần tử k
 				j = k - 1;
-			else if (data == p->key_item[k].key)		//data = khóa của phần tử k
+			else if (the_key == p->key_item[k].key)		//the_key = khóa của phần tử k
 				found = true;							//Tìm thấy 
-			else										//data > khóa của phần tử k
+			else										//the_key > khóa của phần tử k
 				i = k + 1;								//Dãy con [k+1..j]
 		}
-		if (found)										//Tìm thấy data
+		if (found)										//Tìm thấy the_key
 			pos = k;
 		else
 			pos = j;
+		return found;
 	}
 
 	//Tìm khóa trong cây p
-	void findBTree(PTRPAGE p, TYPEINFO data, bool& found, int& pos)
+	bool findBTree(PTRPAGE p, TYPEINFO the_key, int& pos)
 	{
 		if (p == NULL)						//Cây p rỗng
 		{
-			found = false;					//Không tìm thấy
 			pos = -1;						//trả về vị trí -1
+			return false;					//Không tìm thấy
 		}
 		else								//cây p khồn rỗng
 		{
-			findPage(p, data, found, pos);	//Tìm tìm data trong trang p
+			bool found = findPage(p, the_key, pos);	//Tìm tìm the_key trong trang p
 			if (!found)						//Không tìm thấy
 			{
 				if (pos == -1)
-					//Tìm data trong cây con đầu tiên
-					findBTree(p->p_first, data, found, pos);
+					//Tìm the_key trong cây con đầu tiên
+					findBTree(p->p_first, the_key, pos);
 				else
-					//Tìm data trong cây con phải p->key_item[pos].next
-					findBTree(p->key_item[pos].next, data, found, pos);
+					//Tìm the_key trong cây con phải p->key_item[pos].next
+					findBTree(p->key_item[pos].next, the_key, pos);
 			}
 		}
 	}
 
 	//Tìm khóa trong cây root
-	bool find(PTRPAGE root, TYPEINFO data)
+	bool find(PTRPAGE root, TYPEINFO the_key)
 	{
-		bool found;
 		int pos;
-		findBTree(root, data, found, pos);
-		return found;
+		return findBTree(root, the_key, pos);
 	}
 #pragma endregion
 
 
 #pragma region Thêm khóa vào cây
-	//Thêm khóa data vào trang p sau chỉ số pos
-	//Trang con phải của khóa data là trang r
-	void insertPage(PTRPAGE& p, int pos, TYPEINFO data, PTRPAGE r,
+	//Thêm khóa the_key vào trang p sau chỉ số pos
+	//Trang con phải của khóa the_key là trang r
+	void insertPage(PTRPAGE& p, int pos, TYPEINFO the_key, PTRPAGE r,
 		bool& overflow, int& overflow_key, PTRPAGE& overflow_page)
 	{
 		overflow = false;								//Chưa bị tràn
-		overflow_key = data;							//data gửi cho trang cha
+		overflow_key = the_key;							//the_key gửi cho trang cha
 		overflow_page = NULL;							//p không có trang anh em bên phải
 
-		//Thêm khóa data vào trang p tại chỉ số pos + 1
+		//Thêm khóa the_key vào trang p tại chỉ số pos + 1
 		//Di chuyển các khóa từ chỉ số post + 1 về bên phải
 		for (int i = p->key_num; i > pos; i--)
 		{
@@ -130,8 +129,8 @@ namespace BCay
 			p->key_item[i + 1].key = p->key_item[i].key;
 			p->key_item[i + 1].next = p->key_item[i].next;
 		}
-		p->key_item[pos + 1].key = data;				//Phần tử [i+1] chứa data
-		//r là trang con bên phải của data
+		p->key_item[pos + 1].key = the_key;				//Phần tử [i+1] chứa the_key
+		//r là trang con bên phải của the_key
 		p->key_item[pos + 1].next = r;
 		p->key_num++;									//Tăng chỉ số khóa của trang p
 		if (p->key_num == M)							//Trang bị tràn (overflow)
@@ -160,51 +159,50 @@ namespace BCay
 		}
 	}
 
-	//Thêm khóa data vào cây p
-	void insertBTree(PTRPAGE& p, TYPEINFO data, bool& overflow, int& overflow_key,
+	//Thêm khóa the_key vào cây p
+	void insertBTree(PTRPAGE& p, TYPEINFO the_key, bool& overflow, int& overflow_key,
 		PTRPAGE& overflow_page)
 	{
-		overflow_key = data;							//data gửi cho trang cha
+		overflow_key = the_key;							//the_key gửi cho trang cha
 		//Trang p không có trang anh em bên phải
 		overflow_page = NULL;
 		if (p == NULL)
-			//Có bị tràn, data được gửi cho trang lá
+			//Có bị tràn, the_key được gửi cho trang lá
 			overflow = true;
 		else											//Cây p khác rỗng
 		{
 			overflow = false;
-			bool found;
 			int pos;
-			//Tìm khóa data trong trang p
+			//Tìm khóa the_key trong trang p
 			//Nếu tìm thấy, trả về found là true và chỉ số là pos
-			//Nếu không tìm thấy, trả về chỉ số pos của phần tử có khóa vừa nhỏ hơn khóa data
-			findPage(p, data, found, pos);
+			//Nếu không tìm thấy, trả về chỉ số pos của phần tử có khóa vừa nhỏ hơn khóa the_key
+			;
 
-			if (!found)
+			if (!findPage(p, the_key, pos))
 			{
 				//Không tìm thấy.
-				//Thêm khóa data vào trang con của trang p
-				PTRPAGE q;								//Thêm khóa data vào trang q
+				//Thêm khóa the_key vào trang con của trang p
+				PTRPAGE q;								//Thêm khóa the_key vào trang q
 				if (pos == -1)
 					q = p->p_first;
 				else
 					//q là trang con bên phải của phần tử có chỉ số pos
 					q = p->key_item->next;
 
-				//Thêm khóa data vào trang q là trang con của trang p
+				//Thêm khóa the_key vào trang q là trang con của trang p
 				//Trả về overflow là true nếu trang q bị tràn,
 				//khóa gửi cho trang p là overflow_key
 				//Trang con bên phải của trang p là trang overflow_page
-				insertBTree(q, data, overflow, overflow_key, overflow_page);
+				insertBTree(q, the_key, overflow, overflow_key, overflow_page);
 
 				if (overflow)							//Có bị tràn
 				{
-					//Data là khóa overflowkey được gửi cho trang p
-					int data2 = overflow_key;
+					//the_key là khóa overflowkey được gửi cho trang p
+					int the_key2 = overflow_key;
 					PTRPAGE r = overflow_page;			//r là trang overflow_page
 
-					//Thêm khóa tràn data2 của trang con q vào trang p
-					insertPage(p, pos, data2, r, overflow, overflow_key, overflow_page);
+					//Thêm khóa tràn the_key2 của trang con q vào trang p
+					insertPage(p, pos, the_key2, r, overflow, overflow_key, overflow_page);
 
 					if (overflow)						//Trang p bị tràn
 					{
@@ -229,23 +227,23 @@ namespace BCay
 		}
 	}
 
-	//Thêm khóa data vào cây root
-	void insert(PTRPAGE& root, TYPEINFO data)
+	//Thêm khóa the_key vào cây root
+	void insert(PTRPAGE& root, TYPEINFO the_key)
 	{
 		if (root == NULL)					//Cây root rỗng
 		{
-			//Tạo trang gốc root chứa data
+			//Tạo trang gốc root chứa the_key
 			createPage(root);
-			root->key_item[0].key = data;
+			root->key_item[0].key = the_key;
 			root->key_num = 1;
 		}
 		else								//Cây root khác rỗng
 		{
-			//Thêm khóa data vào cây root
+			//Thêm khóa the_key vào cây root
 			bool overflow;
 			int overflow_key;
 			PTRPAGE overflow_page;
-			insertBTree(root, data, overflow, overflow_key, overflow_page);
+			insertBTree(root, the_key, overflow, overflow_key, overflow_page);
 		}
 	}
 #pragma endregion
@@ -333,6 +331,229 @@ namespace BCay
 			p->key_item[i + 1].next = p->key_item[i].next;
 		}
 		//Thêm khóa có chỉ số pos của trang cha parent vào đầu trang p
+		p->key_item[0].key = parent->key_item[pos].key;
+		p->key_item[0].next = p->p_first;
+		p->p_first = q->key_item[q->key_num - 1].next;
+		p->key_num++;									//Tăng số khóa của trang b
+
+		//Chép khóa cuối cùng của trang q vào khóa có chỉ số pos của trang cha parent
+		parent->key_item[pos].key = q->key_item[q->key_num - 1].key;
+		q->key_num--;									//Giảm số khóa của trang q
+	}
+
+	//Xử lý underflow của trang p với trang anh em bên phải
+	//Trang p không có trang anh em bên trái
+	//Trang parent là trang cha của trang p
+	//Trang anh em bên phải của trang p: parent->key_item[pos].next
+	void underflowRightPage(PTRPAGE& p, PTRPAGE parent, int pos)
+	{
+		//right_page là trang anh em bên phải của trang p
+		PTRPAGE right_page = parent->key_item[pos].next;
+		if (right_page->key_num > M2)
+			//Lấy một khóa của trang anh em bên phải
+			retrieveRightPage(p, parent, pos, right_page);
+		else
+			//Trộn trang p với trang anh em bên phải
+			mergePage(p, parent, pos, right_page);
+	}
+
+	//Xử lý underflow của trang p với trang anh em bên trái
+	//Trang p không có trang anh em bên phải
+	//Trang parent là trang cha của trang p
+	//Trang anh em bên trái của trang p là parent->key_item[pos - 1].next
+	void underflowLeftPage(PTRPAGE& p, PTRPAGE parent, int pos)
+	{
+		//left_page là trang anh em bên trái của trang p
+		PTRPAGE left_page = parent->key_item[pos - 1].next;
+		if (left_page->key_num > M2)	//left_page có nhiều hơn n khóa
+			//Lấy một khóa của trang left_page
+			retrieveLeftPage(p, parent, pos, left_page);
+		else							//left_page có n khóa
+		{
+			//Trộn trang p với trang left_page
+			mergePage(left_page, parent, pos, p);
+			p = left_page;
+		}
+	}
+
+	//Xử lý trang p bị underflow
+	//Trang parent là trang cha của trang p
+	//p là trang con parent->key_item[pos].next;
+	void underflow(PTRPAGE& p, PTRPAGE parent, int pos)
+	{
+		PTRPAGE left_page;
+		PTRPAGE right_page;
+		if (pos == -1)
+			//p là trang con đầu tiên, chỉ có anh em bên phải
+			left_page = NULL;			//p không có trang anh em bên trái
+		else if (pos == 0)				//p có trang anh em bên trái
+			//Trang anh em bên trái của trang p là trang con đầu tiên của trang cha parent
+			left_page = parent->p_first;
+		else
+			//Trang anh em bên trái của trang p là trang parent->key_item[pos - 1].next
+			left_page = parent->key_item[pos - 1].next;
+
+		if (pos == parent->key_num - 1)
+			//p là trang con cuối cùng, chỉ có trang anh em bên trái
+			right_page = NULL;			//p không có trang anh em bên phải
+		else							//p có trang anh em bên phải
+			//Trang anh em bên phải của trang p là trang parent->key_item[pos + 1].next
+			right_page = parent->key_item[pos + 1].next;
+
+		if (left_page == NULL)
+			//p không có trang anh em bên trái
+			//Xử lý underflow với trang anh em bên phải
+			underflowRightPage(p, parent, pos + 1);
+		else if (right_page == NULL)
+			//p không có trang anh em bên phải
+			//Xử lý underflow với trang anh em bên trái
+			underflowLeftPage(p, parent, pos);
+		else
+		{
+			//p có trang anh em bên phải
+			// Xét trang anh em bên phải của trang p
+			if (right_page->key_num > M2)
+				//Trang anh em bên phải right_page có nhiều hơn M2 khóa
+				//Lấy một khóa của trang anh em bên phải
+				retrieveRightPage(p, parent, pos + 1, right_page);
+			else
+			{
+				//Trang anh em bên phải right_page có M2 khóa
+				//Xét trang anh em bên trái
+				if (left_page->key_num > M2)
+					//Trang anh em bên trái left_page có nhiều hơn M2 khóa
+					//Lấy một khóa của trang left_page
+					retrieveLeftPage(p, parent, pos, left_page);
+				else
+					//Trộn trang p với trang right_page
+					mergePage(p, parent, pos + 1, right_page);
+			}
+		}
+	}
+
+	//Loại bỏ khóa cực phải của cây con bên trái của element
+	//element là phần tử khóa bị loại bỏ
+	//Chép khóa cực phải của trang q vào khóa của phần tử element
+	//Trang parent là trang của trang q
+	void removeRightMostNode(PTRPAGE& q, PTRPAGE parent, int pos, ITEM& element)
+	{
+		int n = q->key_num - 1;
+		if (q->key_item[n].next != NULL)		//q chưa là trang cực phải
+		{
+			//Loại bỏ khóa cực phải của trang cực phải q
+			removeRightMostNode(q->key_item[n].next, q, n, element);
+
+			if (q->key_num < M2)				//Trang q bị underflow
+				//Xử lý trang q bị underflow với trang cha parent
+				underflow(q, parent, pos);
+		}
+		else									//q là trang cực phải
+		{
+			//Chép khóa cực phải của trang q vào phần tử khóa element
+			element.key = q->key_item[n].key;
+			q->key_num--;						//Giảm số khóa của trang q
+
+			if (q->key_num < M2)				//Trang q bị underflow
+				//Xử lý trang q bị underflow với trang cha parent
+				underflow(q, parent, pos);
+		}
+	}
+
+	//Loại bỏ khóa the_key trong cây p
+	//p là trang con parent->key_item[pos].next
+	bool removeBTree(PTRPAGE& p, TYPEINFO the_key, PTRPAGE parent, int pos)
+	{
+		PTRPAGE q;
+		int pos_key;
+		if (p != NULL)
+		{
+			if (findPage(p, the_key, pos_key))	//Tìm thấy
+			{
+				if (pos_key != -1)				//Tìm thấy tại chỉ số pos_key
+				{
+					if (p->p_first == NULL)		//p là trang lá
+					{
+						//Loại bỏ khóa the_key trong trang p
+						removeKey(p, pos_key);
+						if (p->key_num < M2)	//Trang p bị underflow
+						{
+							if (p == root)		// p là trang root
+							{
+								if (p->key_num == 0)	//Trang root rỗng
+								{
+									delete p;
+									root = NULL;
+								}
+							}
+							else
+								//Xử lý underflow của trang p
+								underflow(p, parent, pos);
+						}
+					}
+					else
+					{
+						//Tìm khóa cực phải của cây con bên trái q của trang p
+						//q là trang con bên trái của p
+						int position;
+						if (pos_key == 0)
+						{
+							q = p->p_first;		//q là trang con đầu tiên của p
+							position = -1;
+						}
+						else
+						{
+							//q là trang con p->key_item[pos_key - 1].next
+							q = p->key_item[pos_key - 1].next;
+							position = pos_key - 1;
+						}
+
+						//Trang q là trang con của khóa p->key_item[pos_key]
+						//p->key_item[pos_key] là khóa bị loại bỏ
+						//Loại bỏ khóa cực phải của cây q
+						removeRightMostNode(q, p, position, p->key_item[pos_key]);
+
+						if (p != root)					//p không là trang root
+							if (p->key_num < M2)		//Trang p bị underflow
+								//Xử lý underflow của trang p với trang cha parent
+								underflow(p, parent, pos);
+					}
+				}
+				return true;		//Loại bỏ được
+			}
+			else					//Không tìm thấy
+			{
+				if (p->p_first != NULL)	//p không là trang lá
+				{
+					if (pos_key == -1)
+						q = p->p_first;	//q là trang con đầu tiên của p
+					else
+						//q là trang con p->key_item[pos_key].next
+						q = p->key_item[pos_key].next;
+
+					//Loại bỏ khóa the_key trong cây q
+					//q là trang con p->key_item[pos_key].next
+					removeBTree(q, the_key, p, pos_key);
+
+					if (p != root)				//p không là trang root
+						if (p->key_num < M2)	//Trang p bị underflow
+							//Xử lý underflow của trang p với trang cha parent
+							underflow(p, parent, pos);
+				}
+				return false;
+			}
+		}
+		return false;
+	}
+
+	//Loại bỏ khóa the_key trong cây root
+	//root là trang con của khóa parent->key_item[pos]
+	//Trang ảo: pos = -2
+	bool remove(PTRPAGE& root, TYPEINFO the_key)
+	{
+		//parent là trang cha của trang root (trang ảo)
+		PTRPAGE parent = NULL;
+		int pos = -2;				//pos = -1 (trang đầu tiên p_first)
+		return removeBTree(root, the_key, parent, pos);
 	}
 #pragma endregion
 
@@ -398,6 +619,84 @@ namespace BCay
 	//Menu chức năng cho B Cây
 	void menu()
 	{
+		init(root);
+		char option = {};
+		do
+		{
+			system("cls");
+			cout << "Cac tac vu cua cay:" << endl;
+			cout << "1. Kiem tra cay rong." << endl;
+			cout << "2. Them khoa vao cay." << endl;
+			cout << "3. Tim kiem khoa trong cay." << endl;
+			cout << "4. Loai bo khoa trong cay." << endl;
+			cout << "5. Duyet cay theo thu tu NLR." << endl;
+			cout << "6. Huy bo cay." << endl;
+			cout << "0. Ket thuc." << endl;
+			cout << "Chon tac vu: ";
+			cin >> option;
+			switch (option)
+			{
+			case '1':		//Kiểm tra cây rỗng
+			{
+				//Kiểm tra cây root rỗng
+				if (isEmpty(root))
+					cout << "Cay rong" << endl;
+				else cout << "Cay khong rong" << endl;
+				system("pause");
+				break;
+			}
+			case '2':		//Thêm khóa vào cây
+			{
+				int the_key;
+				cout << "Nhap du lieu them vao: ";
+				cin >> the_key;
+				//Thêm the_key vào cây root
+				insert(root, the_key);
+				break;
+			}
+			case '3':		//Tìm kiếm khóa trong cây
+			{
+				int the_key;
+				cout << "Nhap khoa can tim kiem: ";
+				cin >> the_key;
+				//Tìm the_key trong cây root
+				if (find(root, the_key))
+					cout << "Tim thay khoa " << the_key << endl;
+				else
+					cout << "Khong tim thay khoa " << the_key << endl;
+				system("pause");
+				break;
+			}
+			case '4':		//Loại bỏ khóa trong cây
+			{
+				int the_key;
+				cout << "Nhap khoa muon loai bo: ";
+				cin >> the_key;
+				if (!remove(root, the_key))
+				{
+					cout << "Khong co khoa " << the_key << endl;
+					system("pause");
+				}
+				break;
+			}
+			case '5':		//Duyệt cây theo thứ tự NLR
+			{
+				if (isEmpty(root))
+					cout << "Cay rong" << endl;
+				else
+					traverseBTree(root);
+				system("pause");
+				break;
+			}
+			case '6':		//Hủy bỏ cây
+			{
+				clear(root);
+				break;
+			}
+			default:
+				break;
+			}
+		} while (option != '0');
 	}
 #pragma endregion
 

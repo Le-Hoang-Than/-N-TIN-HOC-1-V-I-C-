@@ -675,6 +675,7 @@ namespace BangBam
 				}
 				hash_table.array[i] = the_key;	//Thêm th_key tại phần tử [i]
 				hash_table.count++;				//Tăng số khóa hiện tại
+				return true;
 			}
 		}
 

@@ -368,7 +368,7 @@ namespace CayTimKiemNhiPhan
 				system("pause");
 				break;
 			}
-			case 4:		//Loại bỏ khóa trong 
+			case 4:		//Loại bỏ khóa trong cây
 			{
 				int data;
 				cout << "Nhap khoa muon loai bo: ";

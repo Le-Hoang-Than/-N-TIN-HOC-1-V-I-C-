@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1446DB28-2F84-4FA1-9AE8-7919B030CF29}|Than_DH52201426\\Than_DH52201426.vcxproj|C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BangBam.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{1446DB28-2F84-4FA1-9AE8-7919B030CF29}|Than_DH52201426\\Than_DH52201426.vcxproj|solutionrelative:Than_DH52201426\\BangBam.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{1446DB28-2F84-4FA1-9AE8-7919B030CF29}|Than_DH52201426\\Than_DH52201426.vcxproj|C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BCay.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{1446DB28-2F84-4FA1-9AE8-7919B030CF29}|Than_DH52201426\\Than_DH52201426.vcxproj|solutionrelative:Than_DH52201426\\BCay.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,14 +31,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BangBam.h",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BangBam.h",
-              "RelativeDocumentMoniker": "Than_DH52201426\\BangBam.h",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BangBam.h",
-              "RelativeToolTip": "Than_DH52201426\\BangBam.h",
-              "ViewState": "AgIAAFYDAAAAAAAAAAAkwGADAAAXAAAAAAAAAA==",
+              "Title": "BCay.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BCay.h",
+              "RelativeDocumentMoniker": "Than_DH52201426\\BCay.h",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\\u0110\u1ED2 \u00C1N TIN HOC 1 V\u1EDAI C\u002B\u002B\\Than_DH52201426\\Than_DH52201426\\BCay.h*",
+              "RelativeToolTip": "Than_DH52201426\\BCay.h*",
+              "ViewState": "AgIAAOYBAAAAAAAAAAAowP0BAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-10-19T18:39:11.026Z",
+              "WhenOpened": "2024-10-20T20:10:41.26Z",
               "EditorCaption": ""
             }
           ]
