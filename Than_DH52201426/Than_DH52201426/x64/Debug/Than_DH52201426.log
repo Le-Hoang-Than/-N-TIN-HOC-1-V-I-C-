@@ -1,3 +1,4 @@
 ﻿  MainProgram.cpp
 C:\Users\Admin\Desktop\ĐỒ ÁN TIN HOC 1 VỚI C++\Than_DH52201426\Than_DH52201426\BangBam.h(172,1): warning C4715: 'BangBam::PhuongPhapKetNoiTrucTiep::removeBST': not all control paths return a value
+C:\Users\Admin\Desktop\ĐỒ ÁN TIN HOC 1 VỚI C++\Than_DH52201426\Than_DH52201426\BangBam.h(679,1): warning C4715: 'BangBam::PhuongPhapThuTuyenTinh::insert': not all control paths return a value
   Than_DH52201426.vcxproj -> C:\Users\Admin\Desktop\ĐỒ ÁN TIN HOC 1 VỚI C++\Than_DH52201426\x64\Debug\Than_DH52201426.exe
